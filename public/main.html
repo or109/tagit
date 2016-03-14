@@ -8,20 +8,6 @@
             <li><a href="" ng-repeat="user in users" ng-click="getAllTagsByUser(user.name)">{{user.name}}</a></li>
         </ul>
     </div>
-    <!-- TODO LIST -->
-    <div id="todo-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-            <!-- LOOP OVER THE TODOS IN $scope.todos -->
-            <div class="checkbox" ng-repeat="todo in todos">
-                <label>
-                    <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                </label>
-            </div>
-            <p class="text-center" ng-show="loading">
-                <span class="fa fa-spinner fa-spin fa-3x"></span>
-            </p>
-        </div>
-    </div>
     <div id="tags-list" class="row">
         <div class="">
             <!-- LOOP OVER THE TODOS IN $scope.tags -->
@@ -36,31 +22,16 @@
                 </div>
                 <qr text="tag.link" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode"></qr>
                 <textarea type="text" class="textarea" ng-model="tag.msg"></textarea>
-
                 {{}}
                 <div class="btn-group" ng-if="tag.founds.length > 1">
                     <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Founded on: <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="" ng-repeat="found in tag.founds" >{{found}}</a></li>
+                        <li><a href="" ng-repeat="found in tag.founds">{{found}}</a></li>
                     </ul>
                 </div>
-
             </div>
-        </div>
-    </div>
-    <!-- FORM TO CREATE TODOS -->
-    <div id="todo-form" class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <form>
-                <div class="form-group">
-                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                    <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
-                </div>
-                <!-- createToDo() WILL CREATE NEW TODOS -->
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-            </form>
         </div>
     </div>
 </div>

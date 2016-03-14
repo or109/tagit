@@ -1,4 +1,4 @@
-var myApp = angular.module('scotchTodo', ['ngRoute', 'todoController', 'todoService', 'tagService', 'userService', 'ja.qr']);
+var myApp = angular.module('tagitApp', ['ngRoute', 'appController', 'tagService', 'userService', 'ja.qr']);
 
 myApp.config(['$routeProvider',
     function($routeProvider) {

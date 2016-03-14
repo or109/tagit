@@ -1,13 +1,12 @@
 // create a module for the controllers
-var myControllers = angular.module('todoController', [])
+var myControllers = angular.module('appController', [])
 
 // inject the Todo service factory into our controller
-myControllers.controller('mainController', ['$scope', '$http', 'Todos', 'Tags', 'Users', function($scope, $http, Todos, Tags, Users) {
+myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', function($scope, $http, Tags, Users) {
     $scope.formData = {};
     $scope.loading = true;
 
-
-    $scope.qrcodeString = 'ENTER YOUR LOG HERE';
+    $scope.qrcodeString = 'ENTER YOUR qrcodeString HERE';
     $scope.size = 150;
     $scope.correctionLevel = '';
     $scope.typeNumber = 0;
@@ -18,17 +17,6 @@ myControllers.controller('mainController', ['$scope', '$http', 'Todos', 'Tags', 
         .success(function(data) {
             $scope.users = data;
         });
-
-    // GET =====================================================================
-    // when landing on the page, get all todos and show them
-    // use the service to get all the todos
-    Todos.get()
-        .success(function(data) {
-            $scope.todos = data;
-            $scope.loading = false;
-        });
-
-
 
 
     $scope.getAllTagsByUser = function(user) {
@@ -41,39 +29,6 @@ myControllers.controller('mainController', ['$scope', '$http', 'Todos', 'Tags', 
             });
     };
 
-    // CREATE ==================================================================
-    // when submitting the add form, send the text to the node API
-    $scope.createTodo = function() {
-
-        // validate the formData to make sure that something is there
-        // if form is empty, nothing will happen
-        if ($scope.formData.text != undefined) {
-            $scope.loading = true;
-
-            // call the create function from our service (returns a promise object)
-            Todos.create($scope.formData)
-
-            // if successful creation, call our get function to get all the new todos
-            .success(function(data) {
-                $scope.loading = false;
-                $scope.formData = {}; // clear the form so our user is ready to enter another
-                $scope.todos = data; // assign our new list of todos
-            });
-        }
-    };
-
-    // DELETE ==================================================================
-    // delete a todo after checking it
-    $scope.deleteTodo = function(id) {
-        $scope.loading = true;
-
-        Todos.delete(id)
-            // if successful creation, call our get function to get all the new todos
-            .success(function(data) {
-                $scope.loading = false;
-                $scope.todos = data; // assign our new list of todos
-            });
-    };
 }]);
 
 myControllers.controller('foundController', function($scope, $http, $routeParams, Tags) {
