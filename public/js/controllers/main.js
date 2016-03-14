@@ -1,7 +1,8 @@
-angular.module('todoController', [])
+// create a module for the controllers
+var myControllers = angular.module('todoController', [])
 
 // inject the Todo service factory into our controller
-.controller('mainController', ['$scope', '$http', 'Todos', 'Tags', function($scope, $http, Todos, Tags) {
+myControllers.controller('mainController', ['$scope', '$http', 'Todos', 'Tags', 'Users', function($scope, $http, Todos, Tags, Users) {
     $scope.formData = {};
     $scope.loading = true;
 
@@ -13,11 +14,9 @@ angular.module('todoController', [])
     $scope.inputMode = '';
 
 
-    Tags.scan()
+    Users.get()
         .success(function(data) {
-            //$scope.todos = data;
-            // $scope.loading = false;
-            console.log('yes ! ' + data);
+            $scope.users = data;
         });
 
     // GET =====================================================================
@@ -29,21 +28,15 @@ angular.module('todoController', [])
             $scope.loading = false;
         });
 
-    Todos.getalltags()
-        .success(function(data) {
-            $scope.tags = data;
-            $scope.loading = false;
-        });
 
-    $scope.getAllTags = function(user) {
-        //$scope.loading = true;
 
-        console.log('user---' + user);
-        user = 'Mantz';
 
-        Todos.getbyuser(user)
+    $scope.getAllTagsByUser = function(user) {
+        Tags.getbyuser(user)
             .success(function(data) {
-                $scope.tags1 = data;
+                // console.log('fill tag by user - '+ user);
+                $scope.tags = data;
+                // console.log($scope.tags);
                 $scope.loading = false;
             });
     };
@@ -82,3 +75,20 @@ angular.module('todoController', [])
             });
     };
 }]);
+
+myControllers.controller('foundController', function($scope, $http, $routeParams, Tags) {
+    console.log('ma kore !!' + $routeParams.key);
+
+    $scope.key = $routeParams.key;
+    $scope.msg = 'HOlaaa TOD MOTEK!!';
+
+    $scope.getTagByKey = function(key) {
+        Tags.getbykey(key)
+            .success(function(data) {
+                $scope.tag = data;
+                $scope.loading = false;
+            });
+    };
+
+    $scope.getTagByKey($scope.key);
+});

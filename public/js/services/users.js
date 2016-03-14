@@ -1,11 +1,11 @@
-angular.module('tagService', [])
+angular.module('userService', [])
 
 // super simple service
 // each function returns a promise object 
-.factory('Tags', ['$http', function($http) {
+.factory('Users', ['$http', function($http) {
     return {
         get: function(user) {
-            return $http.get('/api/tags/' + user);
+            return $http.get('/api/users');
         },
         create: function(tagData) {
             return $http.post('/api/tags', tagData);

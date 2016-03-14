@@ -28,5 +28,9 @@ module.exports = mongoose.model('Tag', {
     msg: {
         type: String,
         default: ''
+    },
+    founds: {
+        type: Array,
+        default: ''
     }
 });
