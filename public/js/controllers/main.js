@@ -28,9 +28,19 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
                 $scope.tags = data;
                 // console.log($scope.tags);
                 $scope.loading = false;
+
+                // put all tags in map
+                deleteMarkers();
+                $scope.tags.forEach(function(tag) {
+                    tag.founds.forEach(function(found) {
+                        if (found.pos && found.date) {
+                            addMarker(tag.desc, found.date, found.pos.lat, found.pos.lng);
+                        }
+                    });
+                });
+
             });
     };
-
 }]);
 
 myControllers.controller('foundController', function($scope, $http, $routeParams, Tags) {

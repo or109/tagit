@@ -26,9 +26,20 @@
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 6
+          zoom: 13
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
+		var infoWindow2 = new google.maps.InfoWindow({map: map});
+		
+		var description = 'shlom';
+		var cords = new google.maps.LatLng(32.0122106, 34.7636946);
+        var marker = new google.maps.Marker({
+            position: cords,
+            map: map,
+            size: new google.maps.Size(16, 16),
+            animation: google.maps.Animation.DROP,
+            icon: 'http://www.homie.co.il/static/images/favicon.png',
+            content: description });
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -37,16 +48,25 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            map.setCenter(pos);
+			
+			var pos2 = {
+              lat: 32.0122106,
+              lng: 34.7636946
+            }
+			
+			
+            infoWindow2.setPosition(pos2);
+            infoWindow2.setContent('mantz Location found.');
+			
+			infoWindow.setPosition(pos);
+            infoWindow.setContent('KAKI Location found.');
+            map.setCenter(pos2);
           }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+            //handleLocationError(true, infoWindow, map.getCenter());
           });
         } else {
           // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+          //handleLocationError(false, infoWindow, map.getCenter());
         }
       }
 
