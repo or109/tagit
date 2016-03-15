@@ -39,7 +39,8 @@ myControllers.controller('foundController', function($scope, $http, $routeParams
     $scope.key = $routeParams.key;
     $scope.msg = 'HOlaaa TOD MOTEK!!';
     $scope.pos = {};
-    $scope.pos.lat = 0;
+    $scope.pos.lat = 0.0;
+    $scope.pos.lng = 0.0;
 
     $scope.getTagByKey = function(key) {
         Tags.getbykey(key)
