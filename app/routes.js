@@ -21,26 +21,29 @@ function getUsers(res) {
 
 function getTags(res) {
     Tag.find(function(err, tags) {
-
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
             res.send(err);
         }
+        //console.log(tags);
 
         res.json(tags); // return all todos in JSON format
     });
 };
 
-function updateTagByKey(key) {
-    console.log('updateTagByKey(key) -' + key);
+function updateTagByKey(key, pos) {
 
     Tag.find({
         "key": key
     }, function(err, tags) {
 
-        console.log(tags);
+        // console.log(tags);
         var arr = tags[0].founds;
-        arr.push(new Date());
+        var obj = {};
+        obj.date = new Date();
+        obj.pos = pos;
+
+        arr.push(obj);
 
         Tag.update({ 'key': key }, { 'founds': arr }, function(error, result) {
             console.dir(result);
@@ -58,7 +61,7 @@ function getUserByTag(res, key) {
             res.send(err);
         }
 
-        console.log('user = ' + tags[0].user);
+        //console.log('user = ' + tags[0].user);
 
         User.find({
             "name": tags[0].user
@@ -123,7 +126,11 @@ module.exports = function(app) {
 
     ///################### TRY IT!!
     app.post('/api/tag/:key', function(req, res) {
-        updateTagByKey(req.params.key);
+        var pos = {};
+        pos.lat = req.body.lat;
+        pos.lng = req.body.lng;
+
+        updateTagByKey(req.params.key, pos);
         getUserByTag(res, req.params.key);
     });
     ///################### TRY IT!!
@@ -140,7 +147,7 @@ module.exports = function(app) {
         getTagByKey(res, req.params.key);
 
         // you need to report it !!!
-        updateTagByKey(req.params.key);
+        updateTagByKey(req.params.key, null);
     });
 
     app.post('/api/tags', function(req, res) {

@@ -12,6 +12,7 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
     $scope.typeNumber = 0;
     $scope.inputMode = '';
 
+    $scope.loading = true;
 
     Users.get()
         .success(function(data) {
@@ -20,6 +21,7 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
 
 
     $scope.getAllTagsByUser = function(user) {
+        $scope.loading = true;
         Tags.getbyuser(user)
             .success(function(data) {
                 // console.log('fill tag by user - '+ user);
@@ -32,10 +34,12 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
 }]);
 
 myControllers.controller('foundController', function($scope, $http, $routeParams, Tags) {
-    console.log('ma kore !!' + $routeParams.key);
 
+    $scope.loading = true;
     $scope.key = $routeParams.key;
     $scope.msg = 'HOlaaa TOD MOTEK!!';
+    $scope.pos = {};
+    $scope.pos.lat = 0;
 
     $scope.getTagByKey = function(key) {
         Tags.getbykey(key)
@@ -45,5 +49,35 @@ myControllers.controller('foundController', function($scope, $http, $routeParams
             });
     };
 
-    $scope.getTagByKey($scope.key);
+    $scope.getTagByKeyAndLoc = function(key) {
+        var pos = {};
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                $scope.pos = pos;
+
+                Tags.getbykeyandloc(key, pos)
+                    .success(function(data) {
+                        $scope.tag = data;
+                        $scope.loading = false;
+                    });
+
+            }, function() {
+                console.log("balagan - handleLocationError");
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            console.log("balagan - handleLocationError");
+        }
+    };
+
+    //$scope.getTagByKey($scope.key);
+    $scope.getTagByKeyAndLoc($scope.key);
+
 });

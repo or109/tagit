@@ -10,6 +10,9 @@ angular.module('tagService', [])
         getbykey: function(key) {
             return $http.get('/api/tag/' + key);
         },
+        getbykeyandloc: function(key, pos) {
+            return $http.post('/api/tag/' + key, pos);
+        },
         create: function(tagData) {
             return $http.post('/api/tags', tagData);
         },

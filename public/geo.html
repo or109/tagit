@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <script>
+
+      function initMap() {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+			console.log("pos.lat: "+position.coords.latitude);
+			console.log("pos.lng: "+position.coords.longitude);
+          }, function() {
+            console.log("balagan - handleLocationError");
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          console.log("balagan - handleLocationError");
+        }
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCen55Bv3b3z-0PKUz3Z0ATVHeOc-PPAmk&callback=initMap">
+    </script>
+  </body>
+</html>
