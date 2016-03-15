@@ -22,6 +22,8 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
 
     $scope.getAllTagsByUser = function(user) {
         $scope.loading = true;
+        var icon = 'tag orange.png';
+
         Tags.getbyuser(user)
             .success(function(data) {
                 // console.log('fill tag by user - '+ user);
@@ -34,7 +36,7 @@ myControllers.controller('mainController', ['$scope', '$http', 'Tags', 'Users', 
                 $scope.tags.forEach(function(tag) {
                     tag.founds.forEach(function(found) {
                         if (found.pos && found.date) {
-                            addMarker(tag.desc, found.date, found.pos.lat, found.pos.lng);
+                            addMarker(tag.desc, found.date, found.pos.lat, found.pos.lng, icon);
                         }
                     });
                 });
