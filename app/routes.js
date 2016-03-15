@@ -3,8 +3,8 @@ var Tag = require('./models/tag');
 
 var rand = require("generate-key");
 
-//var HOST = 'https://tagit-or109.c9users.io';
-var HOST = 'http://192.168.1.106:8080';
+var HOST = 'https://tagit-or109.c9users.io';
+// var HOST = 'http://192.168.1.106:8080';
 var LINK_URL = HOST + '/#/found/';
 
 function getUsers(res) {

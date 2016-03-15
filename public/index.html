@@ -128,7 +128,6 @@
     function addMarker(desc, date, lat, lng, icon) {
         //var marker;
         var text = desc + ' was found on ' + date;
-        console.log(text);
 
         var pos = {
             lat: lat,
@@ -156,7 +155,7 @@
 
     // Sets the map on all markers in the array.
     function setMapOnAll(map) {
-        for (var i = 1; i < markers.length; i++) {
+        for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map);
         }
     }
